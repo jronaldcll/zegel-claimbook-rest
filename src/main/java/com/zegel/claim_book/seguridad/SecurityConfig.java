@@ -39,6 +39,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/zegel/api/**").permitAll()
                 ).authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                        .requestMatchers("/swagger-ui", "/swagger-ui.html", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-resources/**", "/webjars/**", "/api-docs").anonymous()
                         .requestMatchers("/api/authenticate").anonymous()
                 ).authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers(new AntPathRequestMatcher("/zegel/api/users")).anonymous()
@@ -47,7 +48,6 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
 //        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(jwtRequestFilter, AnonymousAuthenticationFilter.class);
 
